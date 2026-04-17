@@ -14,8 +14,38 @@ const DAY_COLORS = [
   '#00BFA5','#2979FF','#EC407A','#FF8F00','#7C3AED','#16A34A','#F97316'
 ];
 
-let data = {};
-DAYS.forEach(d => data[d] = []);
+// DADOS CHUMBADOS (Hardcoded)
+let data = {
+  "Segunda-feira": [
+    { "id": "id_1776460860535_vw7mf", "time": "06:00", "timeDisplay": "06:00 – 12:15", "desc": "Rua Açu", "local": "Unimed Eletivo", "category": "cat-unimed" },
+    { "id": "id_1776460714004_fzqg1", "time": "19:00", "timeDisplay": "19:00 – 21:50", "desc": "Aula de Química Aplicada a Saúde", "local": "UNP", "category": "cat-faculdade" }
+  ],
+  "Terça-feira": [
+    { "id": "id_1776460936174_fzpmc", "time": "06:00", "timeDisplay": "06:00 – 12:15", "desc": "Rua açu", "local": "Unimed eletivo", "category": "cat-unimed" },
+    { "id": "id_1776460912911_sn7ku", "time": "18:00", "timeDisplay": "18:00 – 06:00", "desc": "CASA DE SAÚDE SÃO LUCAS", "local": "DNA/CSSL", "category": "cat-dna" },
+    { "id": "id_1776460765212_ckkjw", "time": "19:00", "timeDisplay": "19:00 – 21:50", "desc": "AULA ON-LINE DE Gestão de Serviços Farmacêuticos", "local": "casa/trabalho", "category": "cat-faculdade" }
+  ],
+  "Quarta-feira": [
+    { "id": "id_1776460973381_fjkce", "time": "06:00", "timeDisplay": "06:00 – 12:15", "desc": "Rua açu", "local": "Unimed eletivo", "category": "cat-unimed" },
+    { "id": "id_1776460994637_nqnlb", "time": "19:00", "timeDisplay": "19:00 – 21:50", "desc": "Gestão de serviços farmacêuticos- prática", "local": "Unp", "category": "cat-faculdade" }
+  ],
+  "Quinta-feira": [
+    { "id": "id_1776461026354_ussch", "time": "06:00", "timeDisplay": "06:00 – 12:15", "desc": "Rua açu", "local": "Unimed eletivo", "category": "cat-unimed" },
+    { "id": "id_1776461074541_yr7lo", "time": "18:00", "timeDisplay": "18:00 – 06:00", "desc": "NTO", "local": "Cidade alta", "category": "cat-dna" },
+    { "id": "id_1776461054558_04xll", "time": "19:00", "timeDisplay": "19:00 – 21:50", "desc": "Aula on-line de análises metabólicas", "local": "casa/trabalho", "category": "cat-faculdade" }
+  ],
+  "Sexta-feira": [
+    { "id": "id_1776461109948_xsom1", "time": "06:00", "timeDisplay": "06:00 – 12:15", "desc": "Rua açu", "local": "Unimed eletivo", "category": "cat-unimed" },
+    { "id": "id_1776437573090_gnavy", "time": "18:00", "timeDisplay": "18:00 – 06:00", "desc": "CASA DE SAÚDE SÃO LUCAS", "local": "DNA CSSL", "category": "cat-dna" },
+    { "id": "id_1776461155919_ons9x", "time": "19:00", "timeDisplay": "19:00 – 21:50", "desc": "Aula prática de análises metabólicas", "local": "UNP/LABORATORIO", "category": "cat-faculdade" }
+  ],
+  "Sábado": [
+    { "id": "id_1776461244625_gnck8", "time": "06:00", "timeDisplay": "06:00 – 12:15", "desc": "Rua açu", "local": "Unimed eletivo", "category": "cat-unimed" }
+  ],
+  "Domingo": [
+    { "id": "id_1776460829360_t2run", "time": "18:00", "timeDisplay": "18:00 – 06:00", "desc": "CASA DE SAÚDE SÃO LUCAS", "local": "DNA/CSSL", "category": "cat-dna" }
+  ]
+};
 
 let editingDay = null, editingId = null;
 
@@ -34,14 +64,14 @@ function toast(msg, type='') {
 }
 
 // ═══════════════════════════════════════
-//  PERSISTÊNCIA LOCAL
+//  PERSISTÊNCIA LOCAL (Atualizado para v6)
 // ═══════════════════════════════════════
 function saveLocal() {
-  localStorage.setItem('plantoes_v5', JSON.stringify(data));
+  localStorage.setItem('plantoes_v6', JSON.stringify(data));
 }
 
 function loadLocal() {
-  const raw = localStorage.getItem('plantoes_v5');
+  const raw = localStorage.getItem('plantoes_v6');
   if (raw) {
     const parsed = JSON.parse(raw);
     DAYS.forEach(d => {
