@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cronograma de Plantões</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="top-strip"></div>
+  <div id="toast-container"></div>
+
+  <div class="app">
+
+    <div class="header">
+      <div>
+        <div class="header-date" id="headerDate">—</div>
+        <div class="header-week" id="headerWeek">—</div>
+      </div>
+      <div class="header-actions">
+        <button class="btn" onclick="exportJSON()">⬇ Exportar</button>
+        <label class="btn" style="cursor:pointer">
+          📂 Importar
+          <input type="file" accept=".json" style="display:none" onchange="importJSON(event)">
+        </label>
+        <button class="btn btn-red" onclick="resetAll()">🗑 Limpar tudo</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search" placeholder="Pesquisar plantão ou local…" oninput="render()"/>
+      </div>
+      <select id="filterCat" onchange="render()">
+        <option value="">Todas as categorias</option>
+        <option value="cat-unimed">🏥 Unimed</option>
+        <option value="cat-dna">🧬 DNA</option>
+        <option value="cat-faculdade">📚 Faculdade</option>
+        <option value="cat-lazer">🎉 Lazer</option>
+        <option value="cat-viagem">✈️ Viagem</option>
+      </select>
+    </div>
+
+    <div class="add-panel" id="addPanel">
+      <div class="add-panel-title">Novo plantão</div>
+
+      <div class="days-row" id="daysRow">
+        <div class="day-pill"><input type="checkbox" id="d0" value="Segunda-feira" class="day-check"><label for="d0">SEG</label></div>
+        <div class="day-pill"><input type="checkbox" id="d1" value="Terça-feira"   class="day-check"><label for="d1">TER</label></div>
+        <div class="day-pill"><input type="checkbox" id="d2" value="Quarta-feira"  class="day-check"><label for="d2">QUA</label></div>
+        <div class="day-pill"><input type="checkbox" id="d3" value="Quinta-feira"  class="day-check"><label for="d3">QUI</label></div>
+        <div class="day-pill"><input type="checkbox" id="d4" value="Sexta-feira"   class="day-check"><label for="d4">SEX</label></div>
+        <div class="day-pill"><input type="checkbox" id="d5" value="Sábado"        class="day-check"><label for="d5">SAB</label></div>
+        <div class="day-pill"><input type="checkbox" id="d6" value="Domingo"       class="day-check"><label for="d6">DOM</label></div>
+      </div>
+
+      <div class="inputs-row">
+        <div class="input-group">
+          <label>Início</label>
+          <input type="text" id="timeStart" class="time-input" placeholder="00:00" maxlength="5" oninput="formatTime(this)"/>
+        </div>
+        <div class="input-group">
+          <label>Fim</label>
+          <input type="text" id="timeEnd" class="time-input" placeholder="00:00" maxlength="5" oninput="formatTime(this)"/>
+        </div>
+        <div class="input-group">
+          <label>Tipo</label>
+          <select id="category">
+            <option value="">Todas as categorias</option>
+            <option value="cat-unimed">🏥 Unimed</option>
+            <option value="cat-dna">🧬 DNA</option>
+            <option value="cat-faculdade">📚 Faculdade</option>
+            <option value="cat-lazer">🎉 Lazer</option>
+            <option value="cat-viagem">✈️ Viagem</option>
+          </select>
+        </div>
+        <div class="input-group grow">
+          <label>Descrição</label>
+          <input type="text" id="desc" placeholder="Ex: Plantão UPA Norte, Cirurgia…"/>
+        </div>
+        <div class="input-group">
+          <label>Local</label>
+          <input type="text" id="local" placeholder="UPA, UTI, PS…" style="width:130px"/>
+        </div>
+        <button class="btn btn-teal" id="addBtn" onclick="addShift()" style="align-self:flex-end;height:46px;padding:0 22px">
+          + Adicionar
+        </button>
+      </div>
+    </div>
+
+    <div class="calendar-wrap">
+      <div class="calendar-grid" id="calGrid"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
